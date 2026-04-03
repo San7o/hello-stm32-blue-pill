@@ -1,4 +1,4 @@
-# hello stm32
+![](./stm-banner.jpeg)
 
 Model: STM32F030C8T6
 
