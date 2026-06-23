@@ -86,6 +86,8 @@ exc_extern_generic_handler:
     ldr r2, =EXC_RETURN1
     bx r2
 
+    // This is called by the reset handler, and is the actual start of the
+    // program
     .global start
 start:
 
