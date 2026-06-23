@@ -4,6 +4,11 @@ Model: STM32F030C8T6
 
 Example projects for the STM32 "Blue Pill".
 
+You may be also interested in:
+
+- [hello-pico2](https://github.com/San7o/hello-pico2)
+- [hello-esp32](https://github.com/San7o/hello-esp32)
+
 ## Dependencies
 
 ```bash
@@ -12,6 +17,8 @@ sudo apt install gcc-arm-none-eabi stm32flash
 
 ## Usage
 
+### st-link
+
 You can run `make` inside each project to build the binary. To load it, you can
 either use the st-link with:
 
@@ -19,10 +26,14 @@ either use the st-link with:
 make flash-link
 ```
 
-Or via UART connection if you don't have the st-link. For this, you will need an
-UART-to-USB connector such as the FT232RL. You will then need to connect it to
-the UART1 ports in the STM32 which are A9 (TX) and A10 (RX). Then when you want
-to load the binary you will need to perform the following operation:
+### Uart
+
+If you don't have the st-link (or it is broken), you can use UART to flash the
+memory. You will need an UART-to-USB connector such as the FT232RL.
+
+What you need to do is to connect the UART-to-USB unit to the UART1 ports in the
+STM32 which are A9 (TX) and A10 (RX). Then when you want to load the binary you
+will need to perform the following operation:
 
 - remove the cap from the BOOT0 / BOOT1 yellow pins
 - click the reset button in the board
