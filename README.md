@@ -8,7 +8,7 @@ You may also be interested in:
 - [rpi3b-os](https://github.com/San7o/rpi3b-os)
 - [hello-esp32](https://github.com/San7o/hello-esp32)
 
-You find the datasheets under the [datasheets](./datasheets) directory.
+You can find the datasheets under the [datasheets](./datasheets) directory.
 
 ## Info
 
