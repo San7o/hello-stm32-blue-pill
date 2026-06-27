@@ -25,7 +25,7 @@
     .global exc_vector
 exc_vector:
 
-    .word 0x1000  // stack pointer, TODO: set this appropriately
+    .word INIT_STACK
     .word exc_reset_handler
     .word exc_nmi_handler
     .word exc_hard_fault_handler
@@ -57,40 +57,58 @@ exc_vector:
     // stack. On return execution uses the Process Stack
 .equ EXC_RETURN3, 0xFFFFFFFD
 
+.macro EXC_RETURN x
+    ldr r0, =EXC_RETURN\x
+    bx r0
+.endm
+
 exc_reset_handler:
     b start
-    ldr r2, =EXC_RETURN1
-    bx r2
+    EXC_RETURN 1
 
 exc_nmi_handler:
-    ldr r2, =EXC_RETURN1
-    bx r2
+    EXC_RETURN 1
 
 exc_hard_fault_handler:
-    ldr r2, =EXC_RETURN1
-    bx r2
+    EXC_RETURN 1
 
 exc_svcall_handler:
-    ldr r2, =EXC_RETURN1
-    bx r2
+    EXC_RETURN 1
 
 exc_pendsv_handler:
-    ldr r2, =EXC_RETURN1
-    bx r2
+    EXC_RETURN 1
 
 exc_systick_handler:
-    ldr r2, =EXC_RETURN1
-    bx r2
+    EXC_RETURN 1
 
 exc_extern_generic_handler:
-    ldr r2, =EXC_RETURN1
-    bx r2
+    EXC_RETURN 1
 
     // This is called by the reset handler, and is the actual start of the
     // program
     .global start
 start:
 
-    .loop:
+    // Disable interrupts
+    cpsid if  // Disable interrupts
+
+    // Initialize the stack
+    ldr r0, =INIT_STACK
+    mov sp, r0
+
+    // b init_l2 // ???
+    // b init_clock
+    // b init_dram
+    // b init_bss
+    // b load_stage2
+
+    b main
+
+    .global main
+main:
+    b hcf
+
+    // Hang and catch fire
+hcf:
     wfi
-    b .loop
+    b hcf
